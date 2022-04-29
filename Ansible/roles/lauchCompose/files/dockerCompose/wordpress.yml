@@ -28,9 +28,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     labels:
       - traefik.http.routers.wordpress.rule=Host(`${wordpressDomaineName}`,`${wordpressDomaineName2}`) # A changer entre sous domaine !
-      - traefik.http.routers.wordpress.entrypoints=https
-      - traefik.http.routers.wordpress.tls=true
-      - traefik.http.routers.wordpress.tls.certresolver=${CERT_RESOLVER}
+      - traefik.http.routers.wordpress.entrypoints=http
       - traefik.http.services.wordpress.loadbalancer.server.port=80 # Port que traefik du containeur
     networks:
       - proxy

@@ -5,8 +5,8 @@
 emailLetSencrypt: alexchr53@gmail.com
 
 # AUTH - htpasswd -b -c ~/temp/password admin test101
-authUser: onlymore
-authPassword: $apr1$EKHg1Agl$73lPL.s4vHLdtYzLeMFMq.
+authUser: alex
+authPassword: $2y$05$2CngjDo0TQ5oMDawqafOo.MTSCLteZBNhy7BJSvd5XtdBSnBNpK8O
 
 # SERVICES
 # uptimeActive: 'yes'  ou uptimeActive: 'no'
@@ -15,14 +15,10 @@ authPassword: $apr1$EKHg1Agl$73lPL.s4vHLdtYzLeMFMq.
 
 serviceVps:
   traefik: traefik
-  vaultwarden: vaultwarden
-  matomo: matomo
   nextcloud: nextcloud
   portainer: portainer
-  freshrss: freshrss
   uptime: uptime
   wordpress: wordpress
-  openproject: openproject
 
 # vaultwarden
 vaultwardenActive: 'yes' # Lancer le docker compose ou non : 
@@ -41,12 +37,12 @@ matomoAuth: 'no'
 
 # nextcloud
 nextcloudActive: 'yes' # Lancer le docker compose ou non : 
-nextcloudDomaineName: cloud.onlymore.net
+nextcloudDomaineName: cloud.boulard.sio
 nextcloudAuth: 'no'
 
 # portainer
 portainerActive: 'yes' 
-portainerDomaineName: portainer.onlymore.net
+portainerDomaineName: portainer.boulard.sio
 portainerAuth: 'no'
 
 # freshrss
@@ -56,12 +52,12 @@ freshrssAuth: 'no'
 
 # traefik
 traefikActive: 'yes' 
-traefikDomaineName: traefik.onlymore.net
+traefikDomaineName: traefik.boulard.sio
 traefikAuth: 'yes'
 
 # Uptime
 uptimeActive: 'yes' # Lancer le docker compose ou non : 
-uptimeDomaineName: uptime.rocheralexandre.com
+uptimeDomaineName: uptime.boulard.sio
 uptimeAuth: 'no'
 
 # wordpress

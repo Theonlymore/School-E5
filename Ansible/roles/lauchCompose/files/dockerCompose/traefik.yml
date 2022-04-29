@@ -10,30 +10,19 @@ services:
       # - --log.level=DEBUG
 
       - --entrypoints.http.address=:80
-      - --entrypoints.https.address=:443
 
       - --api=true
       - --providers.docker=true
 
 
-
-      - --providers.file.filename=/etc/traefik/config/tls.yml
-
-
     labels:
       # Redirect all HTTP traffic to HTTPS
-      - traefik.http.routers.to-https.rule=HostRegexp(`{host:.+}`)
-      - traefik.http.routers.to-https.entrypoints=http
-      - traefik.http.routers.to-https.middlewares=to-https
+      - traefik.http.routers.to-http.rule=HostRegexp(`{host:.+}`)
 
-      - traefik.http.routers.traefik.entrypoints=https
       - traefik.http.routers.traefik.rule=Host(`${traefikDomaineName}`)
       - traefik.http.routers.traefik.service=api@internal
-      - traefik.http.routers.traefik.tls=true
-      - traefik.http.routers.traefik.tls.certresolver=${CERT_RESOLVER}
 
 
-      - traefik.http.middlewares.to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}     
     ports:
       - 80:80

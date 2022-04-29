@@ -13,7 +13,7 @@
 rm -r /apps/backup/github/*
 
 USERNAME="theonlymore"
-PASSWORD="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"
+PASSWORD="nonnnnnMyPassword-:-b"
 
 # Generate auth header
 AUTH=$(echo -n $USERNAME:$PASSWORD | base64)

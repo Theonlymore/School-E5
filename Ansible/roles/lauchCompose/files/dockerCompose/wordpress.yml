@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - /apps/web/wordpress/db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - proxy
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    volumes:
+      - /apps/web/wordpress/data:/var/www/html
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    labels:
+      - traefik.http.routers.wordpress.rule=Host(`${wordpressDomaineName}`,`${wordpressDomaineName2}`) # A changer entre sous domaine !
+      - traefik.http.routers.wordpress.entrypoints=https
+      - traefik.http.routers.wordpress.tls=true
+      - traefik.http.routers.wordpress.tls.certresolver=${CERT_RESOLVER}
+      - traefik.http.services.wordpress.loadbalancer.server.port=80 # Port que traefik du containeur
+    networks:
+      - proxy
+
+networks:
+  wordpress:
+  proxy:
+    external: true

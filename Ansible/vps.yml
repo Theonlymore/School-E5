@@ -1,0 +1,12 @@
+---
+
+# docker.yml
+
+  - hosts: web
+    become: true
+
+    roles:
+      - name: baseVps
+      - name: igor_nikiforov.docker
+      - name: lauchCompose
+      - name: finVps

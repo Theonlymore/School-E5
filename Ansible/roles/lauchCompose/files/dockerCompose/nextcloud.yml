@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  nextcloud:
+    image: nextcloud
+    labels:
+      - traefik.http.routers.nextcloud.rule=Host(`${nextcloudDomaineName}`) # A changer entre sous domaine !
+      - traefik.http.routers.nextcloud.entrypoints=https
+      - traefik.http.routers.nextcloud.tls=true
+      - traefik.http.routers.nextcloud.tls.certresolver=${CERT_RESOLVER}
+      #- traefik.http.services.nextcloud.loadbalancer.server.port=8200 # Port 80, pas besoin
+
+    volumes:
+      - /apps/nextcloud/:/var/www/html
+    
+    restart: unless-stopped
+    networks:
+      - proxy
+
+
+networks:
+  proxy:
+    external: true
+

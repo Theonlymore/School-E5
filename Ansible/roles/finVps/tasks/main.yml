@@ -1,0 +1,24 @@
+---
+# tasks file for finVps
+
+- name: copy bashrc
+  ansible.builtin.copy:
+    content: /debian/.bashrc
+    dest: /root/.bashrc
+- name: copy gitCloneAll.sh <3
+  copy:
+    src: files/gitCloneAll.sh
+    dest: /root/script/cron/
+- name: tache automatique de création de backup github
+  ansible.builtin.cron:
+    name: "backup Github"
+    day:  "*"
+    hour: "2"
+    job: '/root/script/cron/gitCloneAll.sh'
+    user: root
+    cron_file: vps
+- name: Update and upgrade apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 #One 

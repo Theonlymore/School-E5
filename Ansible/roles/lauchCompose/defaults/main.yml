@@ -1,0 +1,77 @@
+---
+# defaults file for lauchCompose
+
+# Docker-compose
+emailLetSencrypt: alexchr53@gmail.com
+
+# AUTH - htpasswd -b -c ~/temp/password admin test101
+authUser: onlymore
+authPassword: $apr1$EKHg1Agl$73lPL.s4vHLdtYzLeMFMq.
+
+# SERVICES
+# uptimeActive: 'yes'  ou uptimeActive: 'no'
+# uptimeDomaineName: uptime2.onlymore.net
+# uptimeAuth: 'yes' ou uptimeAuth: 'no'
+
+serviceVps:
+  traefik: traefik
+  vaultwarden: vaultwarden
+  matomo: matomo
+  nextcloud: nextcloud
+  portainer: portainer
+  freshrss: freshrss
+  uptime: uptime
+  wordpress: wordpress
+  openproject: openproject
+
+# vaultwarden
+vaultwardenActive: 'yes' # Lancer le docker compose ou non : 
+vaultwardenDomaineName: pass.onlymore.net
+vaultwardenAuth: 'no'
+
+# duplicati
+duplicatiActive: 'yes' # Lancer le docker compose ou non : 
+duplicatiDomaineName: backup.onlymore.net
+duplicatiAuth: 'no'
+
+# matomo
+matomoActive: 'yes' # Lancer le docker compose ou non : 
+matomoDomaineName: webstats.onlymore.net
+matomoAuth: 'no'
+
+# nextcloud
+nextcloudActive: 'yes' # Lancer le docker compose ou non : 
+nextcloudDomaineName: cloud.onlymore.net
+nextcloudAuth: 'no'
+
+# portainer
+portainerActive: 'yes' 
+portainerDomaineName: portainer.onlymore.net
+portainerAuth: 'no'
+
+# freshrss
+freshrssActive: 'yes' 
+freshrssDomaineName: rss.rocheralexandre.com
+freshrssAuth: 'no'
+
+# traefik
+traefikActive: 'yes' 
+traefikDomaineName: traefik.onlymore.net
+traefikAuth: 'yes'
+
+# Uptime
+uptimeActive: 'yes' # Lancer le docker compose ou non : 
+uptimeDomaineName: uptime.rocheralexandre.com
+uptimeAuth: 'no'
+
+# wordpress
+wordpressActive: 'yes' # Lancer le docker compose ou non : 
+wordpressDomaineName: web.boulard.sio
+wordpressDomaineName2: rocheralexandre.com
+wordpressAuth: 'no'
+
+
+# openProject
+openprojectActive: 'yes' # Lancer le docker compose ou non : 
+openprojectDomaineName: projet.onlymore.net
+openprojectAuth: 'no'

@@ -1,0 +1,51 @@
+---
+# tasks file for lauchCompose
+
+- name: cree dossier
+  file:
+    path: /root/docker/dockercompose/
+    state: directory
+- name: Supprimer l'ancien le .env
+  ansible.builtin.file:
+    path: /root/docker/dockercompose/.env
+    state: absent
+- name: copy /apps/
+  copy:
+    src: files/apps/
+    dest: /apps/
+- name: copy Docker Compose files <3
+  copy:
+    src: files/dockerCompose/{{ item.value }}.yml
+    dest: /root/docker/dockercompose/{{ item.value }}.yml
+  with_dict:
+    - "{{serviceVps}}"
+
+- name: Crée le fichier d'environnement pour les docker-compose
+  include_tasks: authDockerCompose.yml
+- name: Activer authentification sur docker compose ou non
+  include_tasks: makeEnvDockerCompose.yml
+- name: Ajouter le réseau docker "proxy"
+  community.docker.docker_network:
+    name: proxy
+
+- name: deploy Docker Compose stack
+  docker_compose:
+    project_src: /root/docker/dockercompose/
+    files:
+      - '{{ item.value }}.yml'
+  when: '{{ item.value }}Active == "yes"'
+  with_dict:
+  - "{{serviceVps}}"
+- name: arrête le docker compose si désactivé dans les variables
+  docker_compose:
+    project_src: /root/docker/dockercompose/
+    files:
+      - '{{ item.value }}.yml'
+    state: absent
+  when: '{{ item.value }}Active == "no"'
+  with_dict:
+  - "{{serviceVps}}"
+  
+
+
+

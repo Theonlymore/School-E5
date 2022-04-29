@@ -1,0 +1,38 @@
+---
+# tasks file for baseVps
+
+- name: install vim
+  apt:
+    name: 
+    - vim
+    - git
+    - htop
+    state: present
+    update_cache: yes
+
+- name: make /apps/ folder
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /apps/
+    - /apps/backup/
+    - /apps/backup/github
+
+- name: root user ; folder structure
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0750'
+  with_items:
+    - /root/temp/download/
+    - /root/repo/
+    - /root/script/
+    - /root/script/cron/
+    - /root/dev/
+    - /root/prod/
+    - /root/data/
+
+

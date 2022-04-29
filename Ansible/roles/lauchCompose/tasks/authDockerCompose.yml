@@ -1,0 +1,9 @@
+---
+- name: auth ou pas sur traefik
+  ansible.builtin.lineinfile:
+    path: /root/docker/dockercompose/{{ item.value }}.yml
+    insertafter: 'labels:'
+    line: '      - traefik.http.routers.{{ item.value }}.middlewares=auth'
+  when: '{{ item.value }}Auth == "yes"'
+  with_dict:
+  - "{{serviceVps}}"

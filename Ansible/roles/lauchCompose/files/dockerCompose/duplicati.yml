@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/London
+    labels:
+      - traefik.http.routers.duplicati.rule=Host(`${duplicatiDomaineName}`) # A changer entre sous domaine !
+      - traefik.http.routers.duplicati.entrypoints=https
+      - traefik.http.routers.duplicati.tls=true
+      - traefik.http.routers.duplicati.tls.certresolver=${CERT_RESOLVER}
+    volumes:
+      - /apps/backup/duplicati/data/:/source
+      - /apps/backup/duplicati/backups/:/backups
+      - /apps/backup/duplicati/config/:/config
+      - /apps/backup/github/:/backups/github:ro
+      - /apps/web/wordpress/data/wp-content/updraft:/backups/wordpress:ro
+      - /apps/vaultwarden/:/backups/vaultwarden:ro
+      - /apps/monitoring/uptime/:/backups/uptime:ro
+      - /apps/freshRss/:/backups/freshrss:ro
+      - /apps/nextcloud/:/backups/nextcloud:ro
+      - /apps/openproject/:/backups/openproject:ro
+      - /root/:/backups/root:ro
+    restart: unless-stopped
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true

@@ -1,0 +1,18 @@
+---
+
+# docker.yml
+
+- hosts: web
+  become: true
+
+  tasks:
+    - include_vars: roles/lauchCompose/defaults/main.yml
+    - name: root user ; folder structure
+      ansible.builtin.file:
+        path: "/root/{{ item.value}}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0750'
+      with_dict:
+        - "{{serviceVps}}"

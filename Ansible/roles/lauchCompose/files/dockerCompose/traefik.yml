@@ -1,0 +1,49 @@
+services:
+
+  traefik:
+    image: traefik:2.4.8
+    restart: always
+    command:
+      # Try to enable this if something isn't working. 
+      # Chances are, Traefik will tell you why.
+      # Be careful in production as it exposes the traffic you might not want to expose.
+      # - --log.level=DEBUG
+
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
+
+      - --api=true
+      - --providers.docker=true
+
+
+
+      - --providers.file.filename=/etc/traefik/config/tls.yml
+
+
+    labels:
+      # Redirect all HTTP traffic to HTTPS
+      - traefik.http.routers.to-https.rule=HostRegexp(`{host:.+}`)
+      - traefik.http.routers.to-https.entrypoints=http
+      - traefik.http.routers.to-https.middlewares=to-https
+
+      - traefik.http.routers.traefik.entrypoints=https
+      - traefik.http.routers.traefik.rule=Host(`${traefikDomaineName}`)
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=${CERT_RESOLVER}
+
+
+      - traefik.http.middlewares.to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}     
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /apps/traefik/config/:/etc/traefik/config/:ro # tls ( min tls 1.2)
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

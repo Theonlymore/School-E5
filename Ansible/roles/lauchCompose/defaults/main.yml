@@ -1,8 +1,6 @@
 ---
 # defaults file for lauchCompose
 
-# Docker-compose
-emailLetSencrypt: alexchr53@gmail.com
 
 # AUTH - htpasswd -b -c ~/temp/password admin test101
 authUser: alex
@@ -20,20 +18,7 @@ serviceVps:
   uptime: uptime
   wordpress: wordpress
 
-# vaultwarden
-vaultwardenActive: 'yes' # Lancer le docker compose ou non : 
-vaultwardenDomaineName: pass.onlymore.net
-vaultwardenAuth: 'no'
 
-# duplicati
-duplicatiActive: 'yes' # Lancer le docker compose ou non : 
-duplicatiDomaineName: backup.onlymore.net
-duplicatiAuth: 'no'
-
-# matomo
-matomoActive: 'yes' # Lancer le docker compose ou non : 
-matomoDomaineName: webstats.onlymore.net
-matomoAuth: 'no'
 
 # nextcloud
 nextcloudActive: 'yes' # Lancer le docker compose ou non : 
@@ -45,10 +30,6 @@ portainerActive: 'yes'
 portainerDomaineName: portainer.boulard.sio
 portainerAuth: 'no'
 
-# freshrss
-freshrssActive: 'yes' 
-freshrssDomaineName: rss.rocheralexandre.com
-freshrssAuth: 'no'
 
 # traefik
 traefikActive: 'yes' 
@@ -63,11 +44,6 @@ uptimeAuth: 'no'
 # wordpress
 wordpressActive: 'yes' # Lancer le docker compose ou non : 
 wordpressDomaineName: web.boulard.sio
-wordpressDomaineName2: rocheralexandre.com
+wordpressDomaineName2: web2.boulard.sio
 wordpressAuth: 'no'
 
-
-# openProject
-openprojectActive: 'yes' # Lancer le docker compose ou non : 
-openprojectDomaineName: projet.onlymore.net
-openprojectAuth: 'no'

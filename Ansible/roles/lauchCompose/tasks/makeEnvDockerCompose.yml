@@ -5,20 +5,13 @@
     line: '{{ item }}'
     create: yes
   with_items:
-  - 'EMAIL={{ emailLetSencrypt }}' #
-  - 'DOMAIN=rocheralexandre.com'
   # Auth 
   - 'TRAEFIK_USER={{ authUser }}'
   - 'TRAEFIK_PASSWORD_HASH={{ authPassword }}'
     # Uptime service
-  - 'vaultwardenDomaineName={{ vaultwardenDomaineName }}'
-  - 'matomoDomaineName={{ matomoDomaineName }}'
   - 'nextcloudDomaineName={{ nextcloudDomaineName }}'
   - 'portainerDomaineName={{ portainerDomaineName }}'
-  - 'freshrssDomaineName={{ freshrssDomaineName }}'
   - 'traefikDomaineName={{ traefikDomaineName }}'
   - 'uptimeDomaineName={{ uptimeDomaineName }}'
   - 'wordpressDomaineName={{ wordpressDomaineName }}'
   - 'wordpressDomaineName2={{ wordpressDomaineName2 }}'
-  - 'duplicatiDomaineName={{ duplicatiDomaineName }}'
-  - 'openprojectDomaineName={{ openprojectDomaineName }}'
